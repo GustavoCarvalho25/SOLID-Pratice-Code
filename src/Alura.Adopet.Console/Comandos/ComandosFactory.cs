@@ -16,7 +16,9 @@ public static class ComandosFactory
         {
             case "import":
                 var httpClientPet = new HttpClientPet(new AdopetAPIClientFactory().CreateClient("adopet"));
-                var leitorDeArquivos = new LeitorDeArquivo(argumentos[1]);
+                var leitorDeArquivos =  LeitorDeArquivoFactory.CreatePetFrom(argumentos[1]);
+
+                if (leitorDeArquivos is null) { return null; }
                 return new Import(httpClientPet, leitorDeArquivos);
 
             case "list":
@@ -24,7 +26,9 @@ public static class ComandosFactory
                 return new List(httpClientPetList);
 
             case "show":
-                var leitorDeArquivosShow = new LeitorDeArquivo(argumentos[1]);
+                var leitorDeArquivosShow = LeitorDeArquivoFactory.CreatePetFrom(argumentos[1]);
+
+                if (leitorDeArquivosShow is null) { return null; }
                 return new Show(leitorDeArquivosShow);
 
             case "help":
