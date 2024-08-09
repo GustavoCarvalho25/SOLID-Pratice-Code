@@ -15,14 +15,14 @@ public static class ComandosFactory
         switch (comando)
         {
             case "import":
-                var httpClientPet = new HttpClientPet(new AdopetAPIClientFactory().CreateClient("adopet"));
+                var httpClientPet = new PetService(new AdopetAPIClientFactory().CreateClient("adopet"));
                 var leitorDeArquivos =  LeitorDeArquivoFactory.CreatePetFrom(argumentos[1]);
 
                 if (leitorDeArquivos is null) { return null; }
                 return new Import(httpClientPet, leitorDeArquivos);
 
             case "list":
-                var httpClientPetList = new HttpClientPet(new AdopetAPIClientFactory().CreateClient("adopet"));
+                var httpClientPetList = new PetService(new AdopetAPIClientFactory().CreateClient("adopet"));
                 return new List(httpClientPetList);
 
             case "show":
