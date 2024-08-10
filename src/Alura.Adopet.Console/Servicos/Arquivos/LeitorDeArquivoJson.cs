@@ -1,15 +1,10 @@
 ﻿using Alura.Adopet.Console.Modelos;
 using Alura.Adopet.Console.Servicos.Abstracoes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace Alura.Adopet.Console.Servicos.Arquivos
 {
-    public class LeitorDeArquivoJson : ILeitorDeArquivos
+    public class LeitorDeArquivoJson : ILeitorDeArquivos<Pet>
     {
         private string caminhoDoArquivo;
 

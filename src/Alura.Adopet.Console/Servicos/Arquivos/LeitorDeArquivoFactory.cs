@@ -1,15 +1,11 @@
-﻿using Alura.Adopet.Console.Servicos.Abstracoes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Alura.Adopet.Console.Modelos;
+using Alura.Adopet.Console.Servicos.Abstracoes;
 
 namespace Alura.Adopet.Console.Servicos.Arquivos
 {
     public class LeitorDeArquivoFactory
     {
-        public static ILeitorDeArquivos? CreatePetFrom(string caminhoDoArquivo)
+        public static ILeitorDeArquivos<Pet>? CreatePetFrom(string caminhoDoArquivo)
         {
             var extensao = Path.GetExtension(caminhoDoArquivo);
             switch (extensao)
