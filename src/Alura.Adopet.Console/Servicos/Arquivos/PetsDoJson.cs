@@ -1,9 +1,16 @@
-﻿namespace Alura.Adopet.Console.Servicos.Arquivos
+﻿using Alura.Adopet.Console.Modelos;
+
+namespace Alura.Adopet.Console.Servicos.Arquivos
 {
-    internal class PetsDoJson : PetsDoCsv
+    public class PetsDoJson : LeitorDeArquivoJson<Pet>
     {
         public PetsDoJson(string caminhoDoArquivoASerLido) : base(caminhoDoArquivoASerLido)
         {
+        }
+
+        public override Pet CriarDoJson(string linha)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -1,20 +1,13 @@
-﻿using Alura.Adopet.Console.Modelos;
-using Alura.Adopet.Console.Servicos.Arquivos;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Alura.Adopet.Console.Servicos.Arquivos;
 
-namespace Alura.Adopet.Testes.Servicos
+namespace Alura.Adopet.Testes.Servicos;
+public class LeitorDeArquivoJsonTest : IDisposable
 {
-    public class LeitorDeArquivoJsonTest : IDisposable
+    private readonly string caminhoArquivo;
+
+    public LeitorDeArquivoJsonTest()
     {
-        private string caminhoArquivo;
-        public LeitorDeArquivoJsonTest()
-        {
-            //Setup
-            string conteudo = @"
+        string json = @"
             [
               {
                 ""Id"": ""68286fbf-f6f4-4924-adab-0637511813e0"",
@@ -33,28 +26,25 @@ namespace Alura.Adopet.Testes.Servicos
               }
             ]
         ";
+        File.WriteAllText("lista.json", json);
+        caminhoArquivo = Path.GetFullPath("lista.json");
+    }
 
-            string nomeRandomico = $"{Guid.NewGuid()}.json";
+    [Fact]
+    public void QuandoArquivoExistenteDeveRetornarUmaListaDePets()
+    {
+        //Arrange            
 
-            File.WriteAllText(nomeRandomico, conteudo);
-            caminhoArquivo = Path.GetFullPath(nomeRandomico);
-        }
+        //Act
+        var listaDePets = new PetsDoJson(caminhoArquivo).RealizaLeitura()!;
 
-        [Fact]
-        public void QuandoArquivoExistenteDeveRetornarUmaListaDePets()
-        {
-            //Arrange            
-            //Act
-            var listaDePets = new LeitorDeArquivoJson(caminhoArquivo).RealizaLeitura()!;
-            //Assert
-            Assert.NotNull(listaDePets);
-            Assert.IsType<List<Pet>?>(listaDePets);
-        }
+        //Assert
+        Assert.NotNull(listaDePets);
+        Assert.Equal(3, listaDePets.Count());
+    }
 
-        public void Dispose()
-        {
-            //ClearDown
-            File.Delete(caminhoArquivo);
-        }
+    public void Dispose()
+    {
+        File.Delete(caminhoArquivo);
     }
 }

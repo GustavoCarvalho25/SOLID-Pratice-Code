@@ -1,4 +1,5 @@
-﻿using Alura.Adopet.Console.Servicos.Arquivos;
+﻿using Alura.Adopet.Console.Modelos;
+using Alura.Adopet.Console.Servicos.Arquivos;
 
 namespace Alura.Adopet.Testes.Servicos
 {
@@ -11,10 +12,10 @@ namespace Alura.Adopet.Testes.Servicos
             string caminhoArquivo = "pets.csv";
 
             // act
-            var leitor = LeitorDeArquivoFactory.CreatePetFrom(caminhoArquivo);
+            var leitor = LeitorDeArquivoFactory.CreateLeitorDePets(caminhoArquivo);
 
             // assert
-            Assert.IsType<LeitorDeArquivoCSV>(leitor);
+            Assert.IsType<PetsDoCsv>(leitor);
         }
 
         [Fact]
@@ -24,10 +25,10 @@ namespace Alura.Adopet.Testes.Servicos
             string caminhoArquivo = "pets.json";
 
             // act
-            var leitor = LeitorDeArquivoFactory.CreatePetFrom(caminhoArquivo);
+            var leitor = LeitorDeArquivoFactory.CreateLeitorDePets(caminhoArquivo);
 
             // assert
-            Assert.IsType<LeitorDeArquivoJson>(leitor);
+            Assert.IsType<PetsDoJson>(leitor);
         }
 
         [Fact]
@@ -37,7 +38,7 @@ namespace Alura.Adopet.Testes.Servicos
             string caminhoArquivo = "pets.xsl";
 
             // act
-            var leitor = LeitorDeArquivoFactory.CreatePetFrom(caminhoArquivo);
+            var leitor = LeitorDeArquivoFactory.CreateLeitorDePets(caminhoArquivo);
 
             // assert
             Assert.Null(leitor);
