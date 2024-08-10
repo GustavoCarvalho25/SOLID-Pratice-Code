@@ -3,20 +3,26 @@ using Alura.Adopet.Console.Servicos.Abstracoes;
 
 namespace Alura.Adopet.Console.Servicos.Arquivos
 {
-    public class LeitorDeArquivoFactory
+    public static class LeitorDeArquivoFactory
     {
-        public static ILeitorDeArquivos<Pet>? CreatePetFrom(string caminhoDoArquivo)
+        public static ILeitorDeArquivos<Cliente>? CreateLeitorDeClientes(string caminhoArquivo)
         {
-            var extensao = Path.GetExtension(caminhoDoArquivo);
-            switch (extensao)
+            return Path.GetExtension(caminhoArquivo) switch
             {
-                case ".json":
-                    return new LeitorDeArquivoJson(caminhoDoArquivo);
-                case ".csv":
-                    return new LeitorDeArquivoCSV(caminhoDoArquivo);
-                default:
-                    return null;
-            }
+                ".csv" => new ClientesDoCSV(caminhoArquivo),
+                ".json" => new ClientesDoJson(caminhoArquivo),
+                _ => null
+            };
+        }
+
+        public static ILeitorDeArquivos<Pet>? CreateLeitorDePets(string caminhoArquivo)
+        {
+            return Path.GetExtension(caminhoArquivo) switch
+            {
+                ".csv" => new PetsDoCsv(caminhoArquivo),
+                ".json" => new PetsDoJson(caminhoArquivo),
+                _ => null
+            };
         }
     }
 }
